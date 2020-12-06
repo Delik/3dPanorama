@@ -1,0 +1,249 @@
+@import "reset";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Montserrat', 'sans-serif';
+  background-color: #fff;
+  min-width: 320px;
+  min-height: 560px;
+}
+
+ul, li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+#progress {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+}
+
+#bar {
+  background-color: #fff;
+  height: 100%;
+  transition: width 0.1s ease;
+}
+
+#bar.hide {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.menu {
+  width: 40px;
+  overflow: hidden;
+  color: #fff;
+  position: fixed;
+  z-index: 11;
+  top: 20px;
+  left: 20px;
+  height: 40px;
+
+  &::before {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: .6;
+  }
+
+  &-name {
+    position: relative;
+    z-index: 2;
+    color: black;
+    margin-top: 30px;
+    padding-left: 30px;
+    border-bottom: 1px solid #999999;
+    padding-bottom: 30px;
+    opacity: 0;
+
+    & > div:last-child {
+      color: #d90000;
+      margin-top: 4px;
+      font-size: 30px;
+      font-family: 'Pacifico', 'sans-serif';
+    }
+  }
+
+  &-more {
+    transition: .3s;
+    opacity: 0;
+  }
+
+  &-content {
+    padding: 20px 0 20px 30px;
+    position: relative;
+    min-width: 200px;
+    z-index: 10;
+    opacity: 0;
+
+    h3 {
+      color: #2b2b2b;
+      position: relative;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    a {
+      color: #2b2b2b;
+      display: block;
+      padding: 4px 0;
+      transition: .3s;
+      text-decoration: none;
+      position: relative;
+
+      &::before {
+        transition: .3s;
+        display: block;
+        position: absolute;
+        content: '';
+        left: -16px;
+        top: 0;
+        width: 2px;
+        height: 100%;
+      }
+
+      &:hover {
+        &::before {
+          background: #707070;
+        }
+      }
+
+      &.menu-active-btn {
+        &::before {
+          background: red;
+        }
+      }
+    }
+  }
+
+  &-more {
+    color: #d90000;
+    text-decoration: none;
+    font-size: 13px;
+    margin-top: 50px;
+    &::before {
+      display: none!important;
+    }
+    &:visited {
+      color: #d90000;
+    }
+  }
+
+  &-toggler {
+    display: block;
+    background: url(./../img/icons/menu-burger.svg) center no-repeat;
+    background-size: 18px;
+    opacity: .75;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 30;
+    cursor: pointer;
+  }
+
+  &-expanded {
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 230px;
+    overflow-y: auto;
+    padding-bottom: 30px;
+
+    &::before {
+      max-width: 230px;
+      position: fixed;
+    }
+
+    .menu-toggler {
+      background: url(./../img/icons/toggler-arrow.svg) center no-repeat;
+      transform: rotate(-180deg);
+      background-size: 18px;
+    }
+
+    .menu-more,
+    .menu-content,
+    .menu-name {
+      opacity: 1;
+    }
+  }
+}
+
+.page-title {
+  position: absolute;
+  margin-bottom: 0;
+  top: 10%;
+  left: 50%;
+  text-align: center;
+  color: black;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-transform: uppercase;
+  display: inline-block;
+
+  h1 {
+    font-weight: 300;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      left: 50%;
+      bottom: 2px;
+      content: '';
+      width: 112%;
+      transform: translateX(-50%);
+      height: 1px;
+      display: block;
+      background: black;
+      opacity: .4;
+    }
+  }
+
+  span {
+    font-weight: 300;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    .page-title h1 {
+      font-size: 22px;
+    }
+
+    .menu {
+      &::before {
+        opacity: .9;
+      }
+    }
+  }
+}

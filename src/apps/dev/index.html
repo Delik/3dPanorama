@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/pano.css">
+</head>
+<body>
+
+<div id="progress">
+    <div id="bar"></div>
+</div>
+
+<div id="container"></div>
+
+<div class="page-title">
+    <h1>Прихожая</h1>
+    <span>1й этаж</span>
+</div>
+
+<div class="menu menu-expanded">
+    <div class="menu-toggler"></div>
+
+    <div class="menu-name">
+        <div>БОЛЬШОЙ<br/>ТАУНХАУС</div>
+        <div>« Венге »</div>
+    </div>
+
+    <div class="menu-content">
+
+        <div>
+            <h3>1й этаж <i></i></h3>
+            <ul>
+                <li><a href="#" id="btn1" onclick="clickBtn1()" class="menu-btn menu-active-btn">Прихожая</a></li>
+                <li><a href="#" id="btn2" onclick="clickBtn2()" class="menu-btn">Гостинная с кухней</a></li>
+                <li><a href="#" id="btn3" onclick="clickBtn3()" class="menu-btn">Столовая</a></li>
+                <li><a href="#" id="btn4" onclick="clickBtn4()" class="menu-btn">Гардероб</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h3>2й этаж <i></i></h3>
+            <ul>
+                <li><a href="#" id="btn5" onclick="clickBtn5()" class="menu-btn">Холл</a></li>
+                <li><a href="#" id="btn6" onclick="clickBtn6()" class="menu-btn">Спальня</a></li>
+                <li><a href="#" id="btn7" onclick="clickBtn7()" class="menu-btn">Детская (2 окна)</a></li>
+                <li><a href="#" id="btn8" onclick="clickBtn8()" class="menu-btn">Гардероб</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h3>3й этаж <i></i></h3>
+            <ul>
+                <li><a href="#" id="btn9" onclick="clickBtn9()" class="menu-btn">Гостинная</a></li>
+                <li><a href="#" id="btn10" onclick="clickBtn10()" class="menu-btn">Спальня</a></li>
+                <li><a href="#" id="btn11" onclick="clickBtn11()" class="menu-btn">Детская (1 окно)</a></li>
+            </ul>
+        </div>
+
+        <script>
+            document.write('<a class="menu-more" href="' + document.referrer + '">< <span>Другие проекты</span></a>');
+        </script>
+
+    </div>
+
+</div>
+
+<script src="/js/jQuery/jquery-3.2.1.min.js"></script>
+<script src="/js/pano/three.min.js"></script>
+<script src="/js/pano/panolens.min.js"></script>
+
+<script>
+    var panorama1,
+        panorama2,
+        panorama3,
+        panorama4,
+        panorama5,
+        panorama6,
+        panorama7,
+        panorama8,
+        panorama9,
+        panorama10,
+        panorama11,
+        viewer,
+        container;
+
+    var bar = document.querySelector('#bar');
+
+    function onProgressUpdate(event) {
+        var percentage = event.progress.loaded / event.progress.total * 100;
+        bar.style.width = percentage + "%";
+        if (percentage >= 100) {
+            bar.classList.add('hide');
+            setTimeout(function () {
+                bar.style.width = 0;
+            }, 1000);
+        }
+    }
+
+    container = document.querySelector('#container');
+
+    /* 1st floor */
+    panorama1 = new PANOLENS.ImagePanorama('./img/house_1/1_floor/entrace_1floor.jpg');
+    panorama1.addEventListener('progress', onProgressUpdate);
+
+    panorama2 = new PANOLENS.ImagePanorama('./img/house_1/1_floor/kitchen-hole_1floor.jpg');
+    panorama2.addEventListener('progress', onProgressUpdate);
+
+    panorama3 = new PANOLENS.ImagePanorama('./img/house_1/1_floor/eatplace_1floor.jpg');
+    panorama3.addEventListener('progress', onProgressUpdate);
+
+    panorama4 = new PANOLENS.ImagePanorama('./img/house_1/1_floor/garderob_1floor.jpg');
+    panorama4.addEventListener('progress', onProgressUpdate);
+
+    /* 2nd floor */
+    panorama5 = new PANOLENS.ImagePanorama('./img/house_1/2_floor/hole_2floor.jpg');
+    panorama5.addEventListener('progress', onProgressUpdate);
+
+    panorama6 = new PANOLENS.ImagePanorama('./img/house_1/2_floor/bedroom_2floor.jpg');
+    panorama6.addEventListener('progress', onProgressUpdate);
+
+    panorama7 = new PANOLENS.ImagePanorama('./img/house_1/2_floor/detskaya_2win.jpg');
+    panorama7.addEventListener('progress', onProgressUpdate);
+
+    panorama8 = new PANOLENS.ImagePanorama('./img/house_1/2_floor/garderob_2floor.jpg');
+    panorama8.addEventListener('progress', onProgressUpdate);
+
+    /* 3th floor */
+    panorama9 = new PANOLENS.ImagePanorama('./img/house_1/3_floor/hole_3floor.jpg');
+    panorama9.addEventListener('progress', onProgressUpdate);
+
+    panorama10 = new PANOLENS.ImagePanorama('./img/house_1/3_floor/bedroom_3floor.jpg');
+    panorama10.addEventListener('progress', onProgressUpdate);
+
+    panorama11 = new PANOLENS.ImagePanorama('./img/house_1/3_floor/detskaya_1win.jpg');
+    panorama11.addEventListener('progress', onProgressUpdate);
+
+    viewer = new PANOLENS.Viewer({
+        container: container,
+        autoRotate: true,
+        autoRotateSpeed: 0.4,
+        controlBar: false,
+        controlButtons: [],
+    });
+
+    viewer.add(panorama1, panorama2, panorama3, panorama4, panorama5, panorama6, panorama7, panorama8, panorama9, panorama10, panorama11);
+
+    /* Maunal Set Panorama */
+    var button1 = document.querySelector('#btn1');
+    var button2 = document.querySelector('#btn2');
+    var button3 = document.querySelector('#btn3');
+    var button4 = document.querySelector('#btn4');
+    var button5 = document.querySelector('#btn5');
+    var button6 = document.querySelector('#btn6');
+    var button7 = document.querySelector('#btn7');
+    var button8 = document.querySelector('#btn8');
+    var button9 = document.querySelector('#btn9');
+    var button10 = document.querySelector('#btn10');
+    var button11 = document.querySelector('#btn11');
+
+
+
+    /* Enter panorama when load completes */
+    function onButtonClick(targetPanorama) {
+        bar.classList.remove('hide');
+        viewer.setPanorama(targetPanorama);
+    }
+
+    function clickBtn1() {
+        $('body .page-title').html('<h1>Прихожая</h1><span>1 этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn1').addClass('menu-active-btn');
+    }
+
+    function clickBtn2() {
+        $('body .page-title').html('<h1>Гостинная с кухней</h1><span>1 этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn2').addClass('menu-active-btn');
+    }
+
+    function clickBtn3() {
+        $('body .page-title').html('<h1>Столовая</h1><span>1й этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn3').addClass('menu-active-btn');
+    }
+
+    function clickBtn4() {
+        $('body .page-title').html('<h1>Гардероб</h1><span>1й этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn4').addClass('menu-active-btn');
+    }
+
+    function clickBtn5() {
+        $('body .page-title').html('<h1>Холл</h1><span>2й этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn5').addClass('menu-active-btn');
+    }
+
+    function clickBtn6() {
+        $('body .page-title').html('<h1>Спальня</h1><span>2й этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn6').addClass('menu-active-btn');
+    }
+
+    function clickBtn7() {
+        $('body .page-title').html('<h1>Детская (2 окна)</h1><span>2й этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn7').addClass('menu-active-btn');
+    }
+
+    function clickBtn8() {
+        $('body .page-title').html('<h1>Гардероб</h1><span>2й этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn8').addClass('menu-active-btn');
+    }
+
+    function clickBtn9() {
+        $('body .page-title').html('<h1>Гостинная</h1><span>3й этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn9').addClass('menu-active-btn');
+    }
+
+    function clickBtn10() {
+        $('body .page-title').html('<h1>Спальня</h1><span>3й этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn10').addClass('menu-active-btn');
+    }
+
+    function clickBtn11() {
+        $('body .page-title').html('<h1>Детская (1 окно)</h1><span>3й этаж</span>');
+        $('.menu .menu-active-btn').removeClass('menu-active-btn');
+        $('#btn11').addClass('menu-active-btn');
+    }
+
+    button1.addEventListener('click', onButtonClick.bind(this, panorama1));
+    button2.addEventListener('click', onButtonClick.bind(this, panorama2));
+    button3.addEventListener('click', onButtonClick.bind(this, panorama3));
+    button4.addEventListener('click', onButtonClick.bind(this, panorama4));
+    button5.addEventListener('click', onButtonClick.bind(this, panorama5));
+    button6.addEventListener('click', onButtonClick.bind(this, panorama6));
+    button7.addEventListener('click', onButtonClick.bind(this, panorama7));
+    button8.addEventListener('click', onButtonClick.bind(this, panorama8));
+    button9.addEventListener('click', onButtonClick.bind(this, panorama9));
+    button10.addEventListener('click', onButtonClick.bind(this, panorama10));
+    button11.addEventListener('click', onButtonClick.bind(this, panorama11));
+
+    $(function () {
+        $(`#btn1`).addClass('menu-active-btn');
+        var $winWidth = $(window).width();
+        if ($winWidth <= 768) {
+            $('.menu').removeClass("menu-expanded");
+        }
+    });
+
+    /* Toggle menu */
+    $(function () {
+        $('.menu-toggler').on('click', function () {
+            $('.menu').toggleClass('menu-expanded')
+        });
+    });
+
+</script>
+</body>
+</html>
